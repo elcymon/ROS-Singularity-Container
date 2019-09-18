@@ -1,0 +1,22 @@
+Bootstrap: localimage
+From: opencv.simg
+
+%post
+	apt-get -y update
+	apt-get install -y lsb
+	sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+	apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+	apt-get -y update
+	apt-get -y --fix-missing install ros-kinetic-desktop-full
+	
+	rosdep init
+	rosdep update
+	
+	
+	
+	apt -y install python-rosinstall python-rosinstall-generator python-wstool build-essential
+	
+%environment
+	export LC_ALL=C.UTF-8
+%runscript
+	"$@"
